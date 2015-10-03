@@ -1,5 +1,5 @@
 from app import db
-from app.models import Request
+from app.models import Request, Comment
 from datetime import datetime
 
 
@@ -14,3 +14,5 @@ class User(db.Model):
     address = db.Column(db.String)
     feedback = db.relationship('Request', foreign_keys=Request.owner_id, backref='owner',
                                cascade="save-update, merge, delete", lazy='dynamic')
+    comment = db.relationship('Comment', foreign_keys=Comment.owner_id, backref='owner',
+                              cascade="save-update, merge, delete", lazy='dynamic')
