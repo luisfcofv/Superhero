@@ -10,5 +10,22 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     message = db.Column(db.Text)
 
+    def __init__(self, dictionary, request, user):
+        self.request = request
+        self.user = user
+        self.update_comment(dictionary)
+
+    def update_comment(self, dictionary):
+        self.message = dictionary["message"]
+
+    def dictionary(self):
+        return {
+            "id": self.id,
+            "user_id": self.owner_id,
+            "request_id": self.request_id,
+            "message": self.message,
+            "date": self.timestamp.isoformat()
+        }
+
     def __str__(self):
         return self.message

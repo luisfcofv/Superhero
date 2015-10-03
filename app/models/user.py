@@ -17,6 +17,33 @@ class User(db.Model):
     comment = db.relationship('Comment', foreign_keys=Comment.owner_id, backref='user',
                               cascade="save-update, merge, delete", lazy='dynamic')
 
+    def __init__(self, dictionary):
+        self.email = dictionary["email"]
+        self.update_user(dictionary)
+
+    def update_user(self, dictionary):
+        if "first_name" in dictionary:
+            self.first_name = dictionary["first_name"]
+
+        if "last_name" in dictionary:
+            self.last_name = dictionary["last_name"]
+
+        if "address" in dictionary:
+            self.address = dictionary["address"]
+
+        if "phone_number" in dictionary:
+            self.phone_number = dictionary["phone_number"]
+
+    def dictionary(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "address": self.address,
+            "phone_number": self.phone_number,
+        }
+
     def __str__(self):
         return self.email
 

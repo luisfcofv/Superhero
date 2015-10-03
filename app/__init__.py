@@ -15,10 +15,16 @@ def create_app(config_name):
     db.init_app(app)
 
     from app.models import User
-    # api = Api(app)
-    #
-    # from app.resources.auroras import Auroras, AuroraSingle
-    # api.add_resource(Auroras, '/aurora/')
-    # api.add_resource(AuroraSingle, '/aurora/<string:string_date>')
+    api = Api(app)
+
+    from app.resources.users import Users, SingleUser, UserRequest
+    from app.resources.requests import Requests, SingleRequest, RequestComment
+
+    api.add_resource(Users, '/user/')
+    api.add_resource(SingleUser, '/user/<int:user_id>')
+    api.add_resource(UserRequest, '/user/<int:user_id>/request')
+    api.add_resource(Requests, '/request/')
+    api.add_resource(SingleRequest, '/request/<int:request_id>')
+    api.add_resource(RequestComment, '/request/<int:request_id>/comment')
 
     return app
