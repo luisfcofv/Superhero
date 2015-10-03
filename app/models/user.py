@@ -12,7 +12,13 @@ class User(db.Model):
     last_name = db.Column(db.String)
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
-    feedback = db.relationship('Request', foreign_keys=Request.owner_id, backref='owner',
-                               cascade="save-update, merge, delete", lazy='dynamic')
-    comment = db.relationship('Comment', foreign_keys=Comment.owner_id, backref='owner',
+    request = db.relationship('Request', foreign_keys=Request.owner_id, backref='user',
                               cascade="save-update, merge, delete", lazy='dynamic')
+    comment = db.relationship('Comment', foreign_keys=Comment.owner_id, backref='user',
+                              cascade="save-update, merge, delete", lazy='dynamic')
+
+    def __str__(self):
+        return self.email
+
+    def __eq__(self, other):
+        return self.email == other.email
