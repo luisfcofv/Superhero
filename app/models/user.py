@@ -18,10 +18,13 @@ class User(db.Model):
                               cascade="save-update, merge, delete", lazy='dynamic')
 
     def __init__(self, dictionary):
-        self.email = dictionary["email"]
+        self.id = dictionary["id"]
         self.update_user(dictionary)
 
     def update_user(self, dictionary):
+        if "email" in dictionary:
+            self.email = dictionary["email"]
+
         if "first_name" in dictionary:
             self.first_name = dictionary["first_name"]
 

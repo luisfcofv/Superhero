@@ -19,18 +19,18 @@ class Users(Resource):
     def post():
         data = request.json
 
-        if "email" not in data:
-            return 'Email not provided', 400
+        if "id" not in data:
+            return 'Id not provided', 400
 
         new_user = User(data)
-        user = User.query.filter(User.email == new_user.email).first()
+        user = User.query.filter(User.id == new_user.id).first()
 
         if user is None:
             db.session.add(new_user)
             db.session.commit()
             return new_user.dictionary()
         else:
-            return 'Email already registered', 400
+            return user.dictionary()
 
 
 class SingleUser(Resource):
