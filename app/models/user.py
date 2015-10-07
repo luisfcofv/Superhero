@@ -1,21 +1,23 @@
 from app import db
-from app.models import Request, Comment, Persona
+from app.models import Request
+from datetime import datetime
 
 
-class User(Persona):
+class User(db.Model):
     __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    email = db.Column(db.String)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
-    request = db.relationship('Request', foreign_keys=Request.owner_id, backref='user',
-                              cascade="save-update, merge, delete", lazy='dynamic')
-    comment = db.relationship('Comment', foreign_keys=Comment.owner_id, backref='user',
+    request = db.relationship('Request', foreign_keys=Request.user_id, backref='user',
                               cascade="save-update, merge, delete", lazy='dynamic')
 
-    def __init__(self, dictionary):
-        self.id = dictionary["id"]
-        self.update_user(dictionary)
+    # def __init__(self, dictionary):
+    #     self.id = dictionary["id"]
+    #     self.update_user(dictionary)
 
     def update_user(self, dictionary):
         if "email" in dictionary:

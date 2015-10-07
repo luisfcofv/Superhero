@@ -1,5 +1,5 @@
 from app import db
-from app.models.user import Request, Comment, User
+from app.models import Request, Comment, User
 from flask import request
 from flask_restful import Resource
 

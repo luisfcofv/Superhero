@@ -1,4 +1,3 @@
-from app.models import *
 from config import config
 from flask import Flask
 from flask_restful import Api
@@ -14,6 +13,8 @@ def create_app(config_name):
     config[config_name].init_app(app)
 
     db.init_app(app)
+
+    from app.models import User
     api = Api(app)
 
     from app.resources.users import Users, SingleUser, UserRequest
