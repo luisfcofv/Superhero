@@ -1,5 +1,5 @@
 from app import db
-from app.models import User, Request, Country, PostalCode
+from app.models import User, Request, Country, PostalCode, Company, Product, Comment, RequestProduct
 from tests.testbase import TestBase
 
 
@@ -24,6 +24,36 @@ class TestDB(TestBase):
         postal_codes = PostalCode.query.filter(Country.country_code == "IS").all()
         assert len(postal_codes) == 2
 
+    def test_insert_companies(self):
+        country = Country(country_code="IS",
+                          country_name="Iceland")
+        db.session.add(country)
+
+        company = Company(name="Superhero",
+                          email="contact@superhero.com",
+                          phone_number="364-234384")
+        db.session.add(company)
+        new_company = Company.query.first()
+        assert company.name == new_company.name
+
+    def test_insert_products(self):
+        country = Country(country_code="IS",
+                          country_name="Iceland")
+        db.session.add(country)
+
+        company = Company(name="Superhero",
+                          email="contact@superhero.com",
+                          phone_number="364-234384")
+        db.session.add(company)
+
+        pizza_product = Product(name="Pizza",
+                                description="Pepperoni with ham",
+                                company=company)
+        db.session.add(pizza_product)
+
+        product = Product.query.first()
+        assert pizza_product.name == product.name
+
     def test_create_user(self):
         user = User(email="test@gmail.com",
                     first_name="Luis",
@@ -35,19 +65,45 @@ class TestDB(TestBase):
         recent_user = User.query.filter(User.email == user.email).first()
         assert(user == recent_user)
 
-        request = Request(title="I want donuts",
-                          message="Dozen of donuts & 2 lts milk",
+        request = Request(message="Pizza please!",
                           user=user)
 
         db.session.add(request)
+
+        comment = Comment(message="Fast please!",
+                          request=request,
+                          user_comment=True)
+
+        db.session.add(comment)
         recent_user = User.query.filter(User.email == user.email).first()
-        assert(recent_user.request.first() == request)
 
-        # comment = Comment(message="From Dunkin Donuts Please!",
-        #                   request=request)
-        #
-        # db.session.add(comment)
-        # recent_user = User.query.filter(User.email == user.email).first()
-        #
-        # assert(recent_user.request.first().comment.first() == comment)
+        assert(recent_user.request.first().comment.first() == comment)
 
+        country = Country(country_code="IS",
+                          country_name="Iceland")
+        db.session.add(country)
+
+        company = Company(name="Superhero",
+                          email="contact@superhero.com",
+                          phone_number="364-234384")
+        db.session.add(company)
+
+        pizza_product = Product(name="Pizza",
+                                description="Pepperoni with ham",
+                                company=company)
+        sushi_product = Product(name="Sushi",
+                                description="Pepperoni with ham",
+                                company=company)
+        db.session.add(pizza_product)
+        db.session.add(sushi_product)
+
+        request_product1 = RequestProduct(product=pizza_product,
+                                          request=request)
+        request_product2 = RequestProduct(product=sushi_product,
+                                          request=request)
+
+        db.session.add(request_product1)
+        db.session.add(request_product2)
+
+        request_products = RequestProduct.query.filter(RequestProduct.request_id == Request.id).all()
+        assert len(request_products) == 2

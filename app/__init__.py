@@ -14,10 +14,10 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    from app.models import User
+    from app.models import User, Request
     api = Api(app)
 
-    from app.resources.users import Users, SingleUser, UserRequest
+    from app.resources.users import Users, SingleUser, UserRequest, Request
     from app.resources.requests import Requests, SingleRequest, RequestComment
 
     api.add_resource(Users, '/user/')

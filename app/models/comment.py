@@ -10,10 +10,10 @@ class Comment(db.Model):
     message = db.Column(db.Text)
     user_comment = db.Column(db.Boolean)
 
-    def __init__(self, dictionary, request, user):
-        self.request = request
-        self.user = user
-        self.update_comment(dictionary)
+    # def __init__(self, dictionary, request, user):
+    #     self.request = request
+    #     self.user = user
+    #     self.update_comment(dictionary)
 
     def update_comment(self, dictionary):
         self.message = dictionary["message"]

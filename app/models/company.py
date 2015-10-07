@@ -12,5 +12,19 @@ class Company(db.Model):
     name = db.Column(db.String)
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
-    product = db.relationship('Product', foreign_keys=Product.company_id, backref='product',
+    product = db.relationship('Product', foreign_keys=Product.company_id, backref='company',
                               cascade="save-update, merge, delete", lazy='dynamic')
+
+    def dictionary(self):
+        return {
+            "id": self.id,
+            "timestamp": self.timestamp,
+            "email": self.email,
+            "name": self.name,
+            "phone_number": self.phone_number,
+            "address": self.address,
+        }
+
+    def __str__(self):
+        return self.dictionary().__str__()
+
