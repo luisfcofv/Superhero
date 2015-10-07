@@ -14,8 +14,8 @@ class Company(db.Model):
     address = db.Column(db.String)
     product = db.relationship('Product', foreign_keys=Product.company_id, backref='company',
                               cascade="save-update, merge, delete", lazy='dynamic')
-    company_postal_code = db.relationship('Company', foreign_keys=CompanyPostalCode.company_id, backref='company',
-                                          cascade="save-update, merge, delete", lazy='dynamic')
+    company_postal_code = db.relationship('CompanyPostalCode', foreign_keys=CompanyPostalCode.company_id,
+                                          backref='company', cascade="save-update, merge, delete", lazy='dynamic')
 
     def dictionary(self):
         return {

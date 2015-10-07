@@ -11,8 +11,8 @@ class Request(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     comment = db.relationship('Comment', foreign_keys=Comment.request_id, backref='request',
                               cascade="save-update, merge, delete", lazy='dynamic')
-    product_request = db.relationship('RequestProduct', foreign_keys=RequestProduct.request_id, backref='request',
-                                      cascade="save-update, merge, delete", lazy='dynamic')
+    product_request = db.relationship('RequestProduct', foreign_keys=RequestProduct.request_id,
+                                      backref='request', cascade="save-update, merge, delete", lazy='dynamic')
 
     # def __init__(self, dictionary, user):
     #     self.user = user

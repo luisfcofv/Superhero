@@ -1,5 +1,5 @@
 from app import db
-from app.models import Company
+from app.models import CompanyPostalCode
 
 
 class PostalCode(db.Model):
@@ -7,11 +7,12 @@ class PostalCode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country_code = db.Column(db.String, db.ForeignKey('countries.country_code'))
     postal_code = db.Column(db.String, index=True)
-    company = db.relationship('Company', foreign_keys=Company.id, backref='postal_code',
-                              cascade="save-update, merge, delete", lazy='dynamic')
+    company_postal_code = db.relationship('CompanyPostalCode', foreign_keys=CompanyPostalCode.postal_code_id,
+                                          backref='postal_code', cascade="save-update, merge, delete", lazy='dynamic')
 
     def dictionary(self):
         return {
+            "id": self.id,
             "country_code": self.country_code,
             "postal_code": self.postal_code
         }
