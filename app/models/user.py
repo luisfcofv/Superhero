@@ -1,13 +1,9 @@
 from app import db
-from app.models import Request, Comment
-from datetime import datetime
+from app.models import Request, Comment, Persona
 
 
-class User(db.Model):
+class User(Persona):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    signup_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    email = db.Column(db.String)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     phone_number = db.Column(db.String)

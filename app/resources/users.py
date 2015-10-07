@@ -19,7 +19,7 @@ class Users(Resource):
     def post():
         data = request.json
 
-        if "id" not in data:
+        if "id" not in data or data["id"] is None:
             return 'Id not provided', 400
 
         new_user = User(data)

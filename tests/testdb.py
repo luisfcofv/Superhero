@@ -1,9 +1,15 @@
 from app import db
-from app.models import User, Request, Comment
+from app.models import User, Request, Comment, Country
 from tests.testbase import TestBase
 
 
 class TestDB(TestBase):
+
+    def test_insert_countries(self):
+        country = Country(country_code="IS",
+                          country_name="Iceland")
+        db.session.add(country)
+
     def test_create_user(self):
         user = User(email="test@gmail.com",
                     first_name="Luis",
