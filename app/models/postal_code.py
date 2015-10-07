@@ -1,11 +1,14 @@
 from app import db
+from app.models import Company
 
 
 class PostalCode(db.Model):
-    __tablename__ = 'postals'
+    __tablename__ = 'postal_codes'
     id = db.Column(db.Integer, primary_key=True)
     country_code = db.Column(db.String, db.ForeignKey('countries.country_code'))
     postal_code = db.Column(db.String, index=True)
+    company = db.relationship('Company', foreign_keys=Company.id, backref='postal_code',
+                              cascade="save-update, merge, delete", lazy='dynamic')
 
     def dictionary(self):
         return {
