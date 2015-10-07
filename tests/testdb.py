@@ -141,7 +141,7 @@ class TestDB(TestBase):
 
         db.session.add(user)
         recent_user = User.query.filter(User.email == user.email).first()
-        assert(user == recent_user)
+        assert user == recent_user
 
         request = Request(message="Pizza please!",
                           user=user)
@@ -155,7 +155,7 @@ class TestDB(TestBase):
         db.session.add(comment)
         recent_user = User.query.filter(User.email == user.email).first()
 
-        assert(recent_user.request.first().comment.first() == comment)
+        assert recent_user.request.first().comment.first() == comment
 
         country = Country(country_code="IS",
                           country_name="Iceland")
