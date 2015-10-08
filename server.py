@@ -20,7 +20,10 @@ def test():
     """Run the unit tests."""
     import unittest
     tests = unittest.TestLoader().discover('tests')
-    unittest.TextTestRunner(verbosity=2).run(tests)
+    successful = unittest.TextTestRunner(verbosity=2).run(tests).wasSuccessful()
+
+    import sys
+    sys.exit(successful is False)
 
 
 if __name__ == '__main__':
