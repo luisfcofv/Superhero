@@ -19,7 +19,7 @@ def create_app(config_name):
 
     from app.resources.users import Users, SingleUser, UserRequest, Request
     from app.resources.requests import Requests, SingleRequest, RequestComment
-    from app.resources.companies import Companies, CompaniesByPostalCode
+    from app.resources.companies import Companies, CompaniesByPostalCode, SingleCompany
 
     api.add_resource(Users, '/user/')
     api.add_resource(SingleUser, '/user/<string:user_id>')
@@ -28,6 +28,7 @@ def create_app(config_name):
     api.add_resource(SingleRequest, '/request/<int:request_id>')
     api.add_resource(RequestComment, '/request/<int:request_id>/comment')
     api.add_resource(CompaniesByPostalCode, '/company/<string:country_code>/<int:postal_code>')
-    api.add_resource(Companies, '/company/<string:company_id>')
+    api.add_resource(Companies, '/company/')
+    api.add_resource(SingleCompany, '/company/<string:company_id>')
 
     return app

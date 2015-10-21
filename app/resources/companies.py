@@ -3,6 +3,17 @@ from flask_restful import Resource
 
 
 class Companies(Resource):
+    def get(self):
+        companies = Company.query.all()
+
+        companies_array = []
+        for company in companies:
+            companies_array.append(company.dictionary())
+
+        return companies_array
+
+
+class SingleCompany(Resource):
     def get(self, company_id):
         company = Company.query.get(company_id)
 
