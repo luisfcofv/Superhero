@@ -18,7 +18,7 @@ class TestDB(TestBase):
         db.session.add(test_postal_code1)
         db.session.add(test_postal_code2)
 
-        postal_codes = PostalCode.query.filter(Country.country_code == "IS").all()
+        postal_codes = PostalCode.query.filter(PostalCode.country_code == "IS").all()
         assert len(postal_codes) == 2
 
     def test_insert_companies(self):

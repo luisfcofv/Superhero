@@ -16,6 +16,12 @@ manager.add_command('db', MigrateCommand)
 
 
 @manager.command
+def populate():
+    from app.database import PopulateCountry
+    PopulateCountry.insert_countries()
+
+
+@manager.command
 def test():
     """Run the unit tests."""
     import unittest

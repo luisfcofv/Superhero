@@ -20,7 +20,6 @@ class Company(db.Model):
     def dictionary(self):
         return {
             "id": self.id,
-            "timestamp": self.timestamp,
             "email": self.email,
             "name": self.name,
             "phone_number": self.phone_number,
