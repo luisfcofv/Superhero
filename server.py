@@ -15,6 +15,14 @@ manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH')
+    return response
+
+
 @manager.command
 def populate():
     from app.database import PopulateCountry
