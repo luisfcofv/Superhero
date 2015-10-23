@@ -10,6 +10,7 @@ class Product(db.Model):
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'))
     name = db.Column(db.String)
     description = db.Column(db.String)
+    price = db.Column(db.Float)
     product_request = db.relationship('RequestProduct', foreign_keys=RequestProduct.product_id, backref='product',
                                       cascade="save-update, merge, delete", lazy='dynamic')
 
@@ -19,7 +20,8 @@ class Product(db.Model):
             "timestamp": self.timestamp.isoformat(),
             "company_id": self.company_id,
             "name": self.name,
-            "description": self.description
+            "description": self.description,
+            "price": self.price
         }
 
     def __str__(self):

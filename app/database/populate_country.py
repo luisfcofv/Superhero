@@ -41,8 +41,8 @@ class PopulateCountry:
                           country=iceland)
         db.session.add(company)
 
-        pizza_product = Product(name="Pizza", description="Pizza with pepperoni and ham", company=company)
-        sushi_product = Product(name="Sushi", description="Wonderful sushi", company=company)
+        pizza_product = Product(name="Pizza", description="Pizza with pepperoni and ham", company=company, price="10.0")
+        sushi_product = Product(name="Sushi", description="Wonderful sushi", company=company, price="200.0",)
         db.session.add(pizza_product)
         db.session.add(sushi_product)
 
@@ -60,7 +60,7 @@ class PopulateCountry:
                                   country=iceland)
         db.session.add(another_company)
 
-        tacos_product = Product(name="Tacos", description="Real tacos!", company=another_company)
+        tacos_product = Product(name="Tacos", description="Real tacos!", company=another_company, price="750.50")
         db.session.add(tacos_product)
 
         company_postal_code3 = CompanyPostalCode(company=another_company, postal_code=postal_code_101)

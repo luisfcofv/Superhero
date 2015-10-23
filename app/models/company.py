@@ -13,8 +13,8 @@ class Company(db.Model):
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
     thumbnail = db.Column(db.String)
-    product = db.relationship('Product', foreign_keys=Product.company_id, backref='company',
-                              cascade="save-update, merge, delete", lazy='dynamic')
+    products = db.relationship('Product', foreign_keys=Product.company_id, backref='company',
+                               cascade="save-update, merge, delete", lazy='dynamic')
     company_postal_code = db.relationship('CompanyPostalCode', foreign_keys=CompanyPostalCode.company_id,
                                           backref='company', cascade="save-update, merge, delete", lazy='dynamic')
 
@@ -23,7 +23,7 @@ class Company(db.Model):
             "id": self.id,
             "email": self.email,
             "name": self.name,
-            "thumbnail": self.thumbnail,
+            "logo_url": self.thumbnail,
             "phone_number": self.phone_number,
             "address": self.address,
             "country_code": self.country_code

@@ -93,7 +93,7 @@ class TestDB(TestBase):
         cont = 0
         for company_postal_code in company_postal_codes:
             company = Company.query.filter(Company.id == company_postal_code.company_id).first()
-            cont += len(company.product.all())
+            cont += len(company.products.all())
 
         assert cont == 2
 
@@ -104,7 +104,7 @@ class TestDB(TestBase):
         cont = 0
         for company_postal_code in company_postal_codes:
             company = Company.query.filter(Company.id == company_postal_code.company_id).first()
-            cont += len(company.product.all())
+            cont += len(company.products.all())
 
         assert cont == 1
 
@@ -115,7 +115,7 @@ class TestDB(TestBase):
         cont = 0
         for company_postal_code in company_postal_codes:
             company = Company.query.filter(Company.id == company_postal_code.company_id).first()
-            cont += len(company.product.all())
+            cont += len(company.products.all())
 
         assert cont == 3
 
