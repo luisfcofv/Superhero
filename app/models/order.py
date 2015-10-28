@@ -13,16 +13,15 @@ class Order(db.Model):
                                      backref='order', cascade="save-update, merge, delete", lazy='dynamic')
 
     def dictionary(self):
-
-        dict = []
+        order_dict = []
         for order_product in self.order_products.all():
-            dict.append(order_product.dictionary())
+            order_dict.append(order_product.dictionary())
 
         return {
             "id": self.id,
             "user_id": self.user_id,
             "date": self.timestamp.isoformat(),
-            "order_products": dict
+            "order_products": order_dict
         }
 
     def __str__(self):

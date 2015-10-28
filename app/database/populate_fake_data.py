@@ -1,11 +1,17 @@
 from app import db
-from app.models import Company, Country, PostalCode, Product, CompanyPostalCode, User
+from app.models import Company, Country, PostalCode, Product, CompanyPostalCode, User, Order, OrderProduct
 
 
 class PopulateFake:
 
     @staticmethod
     def insert_data():
+        user = User.query.get(1)
+
+        if user is not None:
+            # Already populated
+            return
+
         iceland = Country.query.get("IS")
 
         postal_code_101 = PostalCode.query.filter(PostalCode.country_code == "IS",
@@ -48,17 +54,11 @@ class PopulateFake:
 
         db.session.add(company_postal_code3)
 
-        mexico = Country.query.get("MX")
+        mexico = Country(country_code="MX", country_name="Mexico")
+        db.session.add(mexico)
 
-        if mexico is None:
-            mexico = Country(country_code="MX", country_name="Mexico")
-            db.session.add(mexico)
-
-        postal_code_db = PostalCode.query.filter(PostalCode.country_code == "MX",
-                                                 PostalCode.postal_code == "101").first()
-        if postal_code_db is None:
-            postal_code_db = PostalCode(postal_code="101", country=mexico)
-            db.session.add(postal_code_db)
+        postal_code_db = PostalCode(postal_code="101", country=mexico)
+        db.session.add(postal_code_db)
 
         mexican_company = Company(name="Taqueria en Mexico",
                                   address="Calle 2",
@@ -73,5 +73,14 @@ class PopulateFake:
                     last_name="F",
                     address="Somewhere",
                     phone_number="2389432")
-
         db.session.add(user)
+
+        order = Order(user=user)
+        db.session.add(order)
+
+        order_product1 = OrderProduct(product=pizza_product, order=order, quantity=2)
+        order_product2 = OrderProduct(product=sushi_product, order=order, quantity=1)
+
+        db.session.add(order_product1)
+        db.session.add(order_product2)
+

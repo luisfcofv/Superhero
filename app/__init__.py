@@ -19,11 +19,13 @@ def create_app(config_name):
     from app.resources.users import Users, SingleUser
     from app.resources.companies import Companies, SingleCompany
     from app.resources.products import Products
+    from app.resources.orders import OrdersByUser
 
     api.add_resource(Users, '/users')
     api.add_resource(SingleUser, '/users/<string:user_id>')
     api.add_resource(Companies, '/restaurants')
     api.add_resource(SingleCompany, '/restaurants/<string:company_id>')
     api.add_resource(Products, '/restaurants/<string:company_id>/products')
+    api.add_resource(OrdersByUser, '/users/<string:user_id>/orders')
 
     return app

@@ -42,7 +42,7 @@ class User(db.Model):
         }
 
     def __str__(self):
-        return self.email
+        return self.dictionary().__str__()
 
     def __eq__(self, other):
         return self.email == other.email
