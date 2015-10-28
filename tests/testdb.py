@@ -1,5 +1,5 @@
 from app import db
-from app.models import User, Request, Country, PostalCode, Company, Product, Comment, RequestProduct, CompanyPostalCode
+from app.models import User, Order, Country, PostalCode, Company, Product, CompanyPostalCode, OrderProduct
 from tests.testbase import TestBase
 
 
@@ -143,45 +143,37 @@ class TestDB(TestBase):
         recent_user = User.query.filter(User.email == user.email).first()
         assert user == recent_user
 
-        request = Request(message="Pizza please!",
-                          user=user)
+    def test_insert_orders(self):
+        user = User(email="test@gmail.com",
+                    first_name="Luis",
+                    last_name="F",
+                    address="Somewhere",
+                    phone_number="2389432")
+        db.session.add(user)
 
-        db.session.add(request)
-
-        comment = Comment(message="Fast please!",
-                          request=request,
-                          user_comment=True)
-
-        db.session.add(comment)
-        recent_user = User.query.filter(User.email == user.email).first()
-
-        assert recent_user.request.first().comment.first() == comment
-
-        country = Country(country_code="IS",
-                          country_name="Iceland")
-        db.session.add(country)
+        iceland = Country(country_code="IS", country_name="Iceland")
+        db.session.add(iceland)
 
         company = Company(name="Superhero",
                           email="contact@superhero.com",
-                          phone_number="364-234384")
-        db.session.add(company)
+                          phone_number="364-234384",
+                          country=iceland)
 
-        pizza_product = Product(name="Pizza",
-                                description="Pepperoni with ham",
-                                company=company)
-        sushi_product = Product(name="Sushi",
-                                description="Pepperoni with ham",
-                                company=company)
+        pizza_product = Product(name="Pizza", description="Pepperoni with ham", company=company)
+        sushi_product = Product(name="Sushi", description="Sushi", company=company)
         db.session.add(pizza_product)
         db.session.add(sushi_product)
 
-        request_product1 = RequestProduct(product=pizza_product,
-                                          request=request)
-        request_product2 = RequestProduct(product=sushi_product,
-                                          request=request)
+        order = Order(user=user)
+        db.session.add(order)
 
-        db.session.add(request_product1)
-        db.session.add(request_product2)
+        order_product1 = OrderProduct(product=pizza_product, order=order, quantity=2)
+        order_product2 = OrderProduct(product=sushi_product, order=order, quantity=1)
 
-        request_products = RequestProduct.query.filter(RequestProduct.request_id == Request.id).all()
-        assert len(request_products) == 2
+        db.session.add(order_product1)
+        db.session.add(order_product2)
+
+        recent_user = user.query.get(1)
+
+        assert len(recent_user.orders.all()) == 1
+        assert len(recent_user.orders.first().order_products.all()) == 2

@@ -1,5 +1,5 @@
 from app import db
-from app.models import RequestProduct
+from app.models import OrderProduct
 from datetime import datetime
 
 
@@ -11,8 +11,8 @@ class Product(db.Model):
     name = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.Float)
-    product_request = db.relationship('RequestProduct', foreign_keys=RequestProduct.product_id, backref='product',
-                                      cascade="save-update, merge, delete", lazy='dynamic')
+    order_product = db.relationship('OrderProduct', foreign_keys=OrderProduct.product_id, backref='product',
+                                    cascade="save-update, merge, delete", lazy='dynamic')
 
     def dictionary(self):
         return {

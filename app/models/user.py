@@ -1,5 +1,5 @@
 from app import db
-from app.models import Request
+from app.models import Order
 from datetime import datetime
 
 
@@ -12,12 +12,8 @@ class User(db.Model):
     last_name = db.Column(db.String)
     phone_number = db.Column(db.String)
     address = db.Column(db.String)
-    request = db.relationship('Request', foreign_keys=Request.user_id, backref='user',
-                              cascade="save-update, merge, delete", lazy='dynamic')
-
-    # def __init__(self, dictionary):
-    #     self.id = dictionary["id"]
-    #     self.update_user(dictionary)
+    orders = db.relationship('Order', foreign_keys=Order.user_id, backref='user',
+                             cascade="save-update, merge, delete", lazy='dynamic')
 
     def update_user(self, dictionary):
         if "email" in dictionary:
