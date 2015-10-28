@@ -10,7 +10,6 @@ class OrderProduct(db.Model):
 
     def dictionary(self):
         return {
-            "id": self.id,
             "product_id": self.product_id,
             "quantity": self.quantity
         }

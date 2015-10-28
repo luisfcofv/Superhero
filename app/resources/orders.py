@@ -1,4 +1,6 @@
-from app.models.user import User
+from app import db
+from app.models import Order, OrderProduct, User
+from flask import request
 from flask_restful import Resource
 
 
@@ -21,3 +23,23 @@ class OrdersByUser(Resource):
             order_array.append(order.dictionary())
 
         return order_array
+
+    @staticmethod
+    def post(user_id):
+        user = User.query.get(user_id)
+
+        if user is None:
+            return 'User not found', 400
+
+        order = Order(user=user)
+        db.session.add(order)
+
+        data = request.json
+        for order_product_dict in data:
+            order_product = OrderProduct(order=order,
+                                         quantity=order_product_dict['quantity'],
+                                         product_id=order_product_dict['product_id'])
+            db.session.add(order_product)
+
+        db.session.commit()
+        return order.dictionary()
