@@ -4,6 +4,46 @@ from flask_restful import Resource, reqparse
 
 class Companies(Resource):
     def get(self):
+        """
+        List all restaurants
+        ---
+        tags:
+          - Restaurants
+        definitions:
+          - schema:
+              id: Restaurant
+              properties:
+                id:
+                  type: integer
+                  description: the restaurant's id
+                email:
+                  type: string
+                  description: the restaurant's email
+                name:
+                  type: string
+                  description: the restaurant's name
+                logo_url:
+                  type: string
+                  description: the restaurant's logo url
+                address:
+                  type: string
+                  description: the restaurant's address
+                phone_number:
+                  type: string
+                  description: the restaurant's phone number
+                country_code:
+                  type: string
+                  description: the restaurant's country code
+
+        responses:
+          200:
+            description: Lists all restaurants
+            schema:
+                title: Restaurants
+                type: array
+                items:
+                    $ref: '#/definitions/Restaurant'
+        """
         parser = reqparse.RequestParser()
         parser.add_argument('country')
         parser.add_argument('postal_code')
