@@ -18,7 +18,7 @@ manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
 
-@app.route("/")
+@app.route("/spec.json")
 def spec():
     swag = swagger(app)
     swag['info'].update(dict(
