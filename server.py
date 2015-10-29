@@ -24,7 +24,7 @@ def spec():
     swag['info'].update(dict(
         version="1.0",
         title="SuperHero Delivery API",
-        description="Welcome to the SuperHero Delivery API Documentation."))
+        description="Welcome to the Superhero Delivery API Documentation."))
     return jsonify(swag)
 
 
