@@ -5,8 +5,44 @@ from flask_restful import Resource
 
 
 class Users(Resource):
-    @staticmethod
-    def get():
+    def get(self):
+        """
+        List all users
+        ---
+        tags:
+          - Users
+        definitions:
+          - schema:
+              id: User
+              properties:
+                id:
+                 type: integer
+                 description: the user's id
+                email:
+                 type: string
+                 description: the user's email
+                first_name:
+                 type: string
+                 description: the user's first name
+                last_name:
+                 type: string
+                 description: the user's last name
+                address:
+                 type: string
+                 description: the user's address
+                phone_number:
+                 type: string
+                 description: the user's phone number
+
+        responses:
+          200:
+            description: Lists all users
+            schema:
+                title: Users
+                type: array
+                items:
+                    $ref: '#/definitions/User'
+        """
         users = User.query.all()
         users_array = []
 
@@ -15,8 +51,7 @@ class Users(Resource):
 
         return users_array
 
-    @staticmethod
-    def post():
+    def post(self):
         data = request.json
 
         if "id" not in data or data["id"] is None:
@@ -34,8 +69,7 @@ class Users(Resource):
 
 
 class SingleUser(Resource):
-    @staticmethod
-    def get(user_id):
+    def get(self, user_id):
         user = User.query.filter(User.id == user_id).first()
 
         if user is None:
@@ -43,8 +77,7 @@ class SingleUser(Resource):
 
         return user.dictionary()
 
-    @staticmethod
-    def patch(user_id):
+    def patch(self, user_id):
         user = User.query.filter(User.id == user_id).first()
 
         if user is None:

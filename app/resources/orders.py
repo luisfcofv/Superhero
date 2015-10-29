@@ -5,14 +5,12 @@ from flask_restful import Resource
 
 
 class Orders(Resource):
-    @staticmethod
-    def get():
+    def get(self):
         return []
 
 
 class OrdersByUser(Resource):
-    @staticmethod
-    def get(user_id):
+    def get(self, user_id):
         user = User.query.get(user_id)
 
         if user is None:
@@ -24,8 +22,7 @@ class OrdersByUser(Resource):
 
         return order_array
 
-    @staticmethod
-    def post(user_id):
+    def post(self, user_id):
         user = User.query.get(user_id)
 
         if user is None:

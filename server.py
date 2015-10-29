@@ -1,7 +1,10 @@
 import os
 from app import create_app, db
+from flask import jsonify
+from flask_swagger import swagger
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import Migrate, MigrateCommand
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
@@ -13,6 +16,16 @@ def make_shell_context():
     return dict(app=app, db=db)
 manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
+
+
+@app.route("/")
+def spec():
+    swag = swagger(app)
+    swag['info'].update(dict(
+        version="1.0",
+        title="SuperHero Delivery API",
+        description="Welcome to the SuperHero Delivery API Documentation."))
+    return jsonify(swag)
 
 
 @app.after_request

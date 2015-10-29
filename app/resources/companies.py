@@ -4,7 +4,6 @@ from flask_restful import Resource, reqparse
 
 class Companies(Resource):
     def get(self):
-
         parser = reqparse.RequestParser()
         parser.add_argument('country')
         parser.add_argument('postal_code')
