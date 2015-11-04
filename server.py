@@ -38,8 +38,9 @@ def after_request(response):
 
 @manager.command
 def populate():
-    from app.database import PopulateCountry, PopulateFake
+    from app.database import PopulateCountry, PopulateFake, PopulateOrderStatus
     PopulateCountry.insert_countries()
+    PopulateOrderStatus.insert_order_status()
     PopulateFake.insert_data()
 
 

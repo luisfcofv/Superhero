@@ -9,8 +9,9 @@ class OrderProduct(db.Model):
     quantity = db.Column(db.Integer)
 
     def dictionary(self):
+
         return {
-            "product_id": self.product_id,
+            "product": self.product.dictionary(),
             "quantity": self.quantity
         }
 

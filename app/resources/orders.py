@@ -30,8 +30,6 @@ class OrdersByUser(Resource):
 
         order_status = OrderStatus.query.first()
 
-        print(order_status)
-
         order = Order(user=user, order_status=order_status)
         db.session.add(order)
 

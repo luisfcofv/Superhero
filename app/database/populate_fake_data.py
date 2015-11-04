@@ -1,5 +1,5 @@
 from app import db
-from app.models import Company, Country, PostalCode, Product, CompanyPostalCode, User, Order, OrderProduct
+from app.models import Company, Country, PostalCode, Product, CompanyPostalCode, User, Order, OrderStatus, OrderProduct
 
 
 class PopulateFake:
@@ -75,7 +75,9 @@ class PopulateFake:
                     phone_number="2389432")
         db.session.add(user)
 
-        order = Order(user=user)
+        order_status = OrderStatus.query.first()
+        order = Order(user=user, order_status=order_status)
+
         db.session.add(order)
 
         order_product1 = OrderProduct(product=pizza_product, order=order, quantity=2)

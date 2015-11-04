@@ -1,2 +1,3 @@
 from app.database.populate_country import PopulateCountry
+from app.database.populate_order_status import PopulateOrderStatus
 from app.database.populate_fake_data import PopulateFake

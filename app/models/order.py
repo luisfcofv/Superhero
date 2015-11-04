@@ -21,7 +21,8 @@ class Order(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "date": self.timestamp.isoformat(),
-            "order_products": order_dict
+            "order_products": order_dict,
+            "status": self.order_status.status
         }
 
     def __str__(self):
