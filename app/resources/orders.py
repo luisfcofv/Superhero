@@ -1,5 +1,5 @@
 from app import db
-from app.models import Order, OrderProduct, User
+from app.models import Order, OrderStatus, OrderProduct, User
 from flask import request
 from flask_restful import Resource
 
@@ -28,7 +28,11 @@ class OrdersByUser(Resource):
         if user is None:
             return 'User not found', 400
 
-        order = Order(user=user)
+        order_status = OrderStatus.query.first()
+
+        print(order_status)
+
+        order = Order(user=user, order_status=order_status)
         db.session.add(order)
 
         data = request.json

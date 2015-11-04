@@ -1,5 +1,5 @@
 from app import db
-from app.models import User, Order, Country, PostalCode, Company, Product, CompanyPostalCode, OrderProduct
+from app.models import User, Order, Country, PostalCode, Company, Product, CompanyPostalCode, OrderProduct, OrderStatus
 from tests.testbase import TestBase
 
 
@@ -164,7 +164,18 @@ class TestDB(TestBase):
         db.session.add(pizza_product)
         db.session.add(sushi_product)
 
-        order = Order(user=user)
+        order_status1 = OrderStatus(status="Order received")
+        order_status2 = OrderStatus(status="Cooking")
+        db.session.add(order_status1)
+        db.session.add(order_status2)
+
+        recent_order_status = OrderStatus.query.first()
+        recent_order_list = OrderStatus.query.all()
+
+        assert len(recent_order_list) == 2
+        assert recent_order_status == order_status1
+
+        order = Order(user=user, order_status=order_status1)
         db.session.add(order)
 
         order_product1 = OrderProduct(product=pizza_product, order=order, quantity=2)

@@ -7,8 +7,8 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    order_status_id = db.Column(db.Integer, db.ForeignKey('order_status.id'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-
     order_products = db.relationship('OrderProduct', foreign_keys=OrderProduct.order_id,
                                      backref='order', cascade="save-update, merge, delete", lazy='dynamic')
 

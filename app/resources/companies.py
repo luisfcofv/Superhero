@@ -83,6 +83,25 @@ class Companies(Resource):
 
 class SingleCompany(Resource):
     def get(self, company_id):
+        """
+        Restaurant with company_id
+        ---
+        tags:
+          - Restaurants
+        parameters:
+          - in: path
+            name: company_id
+            description: id of restaurant
+            type: integer
+            required: Yes
+        responses:
+          200:
+            description: Restaurant with company_id
+            schema:
+                $ref: '#/definitions/Restaurant'
+          404:
+            description: Restaurant not found
+        """
         company = Company.query.get(company_id)
 
         if company is None:

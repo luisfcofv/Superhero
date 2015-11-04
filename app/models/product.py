@@ -17,7 +17,6 @@ class Product(db.Model):
     def dictionary(self):
         return {
             "id": self.id,
-            "timestamp": self.timestamp.isoformat(),
             "company_id": self.company_id,
             "name": self.name,
             "description": self.description,
