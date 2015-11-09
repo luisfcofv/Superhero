@@ -22,7 +22,7 @@ class PopulateFake:
 
         company = Company(name="Superhero Restaurant",
                           address="Laugavegur 1",
-                          email="contact@superhero.xyz",
+                          email="info@superhero.xyz",
                           phone_number="364-234384",
                           thumbnail="http://www.lexingtoncolony.com/wp-content/uploads/2014/07/dinner-thumbnail.png",
                           country=iceland)
@@ -41,7 +41,7 @@ class PopulateFake:
 
         another_company = Company(name="Taqueria",
                                   address="Laugavegur 2",
-                                  email="contact@taqueria.com",
+                                  email="info@taqueria.com",
                                   phone_number="364-123456",
                                   thumbnail="http://www.taqueriadf.com/images/logo.gif",
                                   country=iceland)
@@ -51,22 +51,49 @@ class PopulateFake:
         db.session.add(tacos_product)
 
         company_postal_code3 = CompanyPostalCode(company=another_company, postal_code=postal_code_101)
-
         db.session.add(company_postal_code3)
 
-        mexico = Country(country_code="MX", country_name="Mexico")
-        db.session.add(mexico)
+        pizza_rvk = Company(name="Pizza Reykjavik",
+                            address="Borgartún 8",
+                            email="info@pizza.com",
+                            phone_number="364-123456",
+                            thumbnail="http://previews.123rf.com/images/glorcza/glorcza1111/glorcza111100012/11273011-pizza-logo-Stock-Vector-restaurant.jpg",
+                            country=iceland)
+        db.session.add(pizza_rvk)
 
-        postal_code_db = PostalCode(postal_code="101", country=mexico)
-        db.session.add(postal_code_db)
+        company_postal_code4 = CompanyPostalCode(company=pizza_rvk, postal_code=postal_code_101)
+        db.session.add(company_postal_code4)
 
-        mexican_company = Company(name="Taqueria en Mexico",
-                                  address="Calle 2",
-                                  email="contact@mexico.com",
-                                  phone_number="364-123456",
-                                  thumbnail="http://www.taqueriadf.com/images/logo.gif",
-                                  country=mexico)
-        db.session.add(mexican_company)
+        company_postal_code5 = CompanyPostalCode(company=pizza_rvk, postal_code=postal_code_102)
+        db.session.add(company_postal_code5)
+
+        hamburgers_rvk = Company(name="Hamburgers Reykjavik",
+                                 address="Midtún 8",
+                                 email="info@hamburgers.com",
+                                 phone_number="364-16533",
+                                 thumbnail="http://www.clker.com/cliparts/4/e/7/d/12456867691315417792gramzon_Hamburger.svg.hi.png",
+                                 country=iceland)
+        db.session.add(hamburgers_rvk)
+
+        company_postal_code6 = CompanyPostalCode(company=hamburgers_rvk, postal_code=postal_code_101)
+        db.session.add(company_postal_code6)
+
+        company_postal_code7 = CompanyPostalCode(company=hamburgers_rvk, postal_code=postal_code_102)
+        db.session.add(company_postal_code7)
+
+        sushi_rvk = Company(name="Sushi Reykjavik",
+                            address="Tún 1",
+                            email="info@sushi.com",
+                            phone_number="364-71243",
+                            thumbnail="http://www.soultravelmultimedia.com/wp-content/uploads/2011/11/Sushi-Logo-11.png",
+                            country=iceland)
+        db.session.add(sushi_rvk)
+
+        company_postal_code8 = CompanyPostalCode(company=sushi_rvk, postal_code=postal_code_101)
+        db.session.add(company_postal_code8)
+
+        company_postal_code9 = CompanyPostalCode(company=sushi_rvk, postal_code=postal_code_102)
+        db.session.add(company_postal_code9)
 
         user = User(email="test@gmail.com",
                     first_name="Luis",
